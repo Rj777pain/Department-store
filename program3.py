@@ -1,4 +1,4 @@
-ItemSet={'Book','Chocolate','Medicine','Food'}
+ItemSet={'book','chocolate bar','medicine','food'}
 class Product:
     def __init__(self,name,count,price) -> None:
         self.tax=0
