@@ -9,18 +9,17 @@ public class DepartmentStoreItem{
     Set<String> itemToBeExcluded = new HashSet<String>(Arrays.asList("book","chocolate bar","chocolate","medicine","food"));
 
     public DepartmentStoreItem(String productDetails){
-        String[] detailsList=productDetails.split(" : ");
-        this.productName=detailsList[0];
-        this.productCount=Integer.parseInt(detailsList[1]);
-        this.initialPrice=Double.parseDouble(detailsList[2]);
-        this.calculateTax();
+        String[] detailsList = productDetails.split(" : ");
+        this.productName = detailsList[0];
+        this.productCount = Integer.parseInt(detailsList[1]);
+        this.initialPrice = Double.parseDouble(detailsList[2]);
     }
 
-    private void calculateTax(){
+    public void calculateTax(){
         String nameInLowerCase = productName.toLowerCase();
 
         if(isImported(nameInLowerCase)){
-            nameInLowerCase = nameInLowerCase.replaceAll("imported ","");           
+            nameInLowerCase = getTruncatedName(nameInLowerCase);           
             tax+=initialPrice*0.05;
         }
         if(isSalesTaxApplicable(nameInLowerCase))
@@ -36,10 +35,15 @@ public class DepartmentStoreItem{
         return name.contains("imported");
     }
 
+    //getters
+    public String getTruncatedName(String name){
+        return(name.replaceAll("imported ",""));
+    }
+
     public double getFinalPrice(){
         return(finalPrice);
     }
-    public String getName(){
+    public String getProductName(){
         return(productName);
     }
     public double getTotalTaxOfItem(){
@@ -59,16 +63,19 @@ public class DepartmentStoreItem{
 
     public static void main(String[] args){
         List<DepartmentStoreItem> departmentStoreItems=new ArrayList<>();
+        double totalPrice=0,totalTax=0;
+
         departmentStoreItems.add(new DepartmentStoreItem("Book : 1 : 12.49"));
         departmentStoreItems.add(new DepartmentStoreItem("Music CD : 1 : 14.99"));
         departmentStoreItems.add(new DepartmentStoreItem("Chocolate Bar : 1 : 0.85"));
-        double totalPrice=0,totalTax=0;
+        
         System.out.println("Input");
         for(DepartmentStoreItem item:departmentStoreItems){
             System.out.println(item.productInitialPriceDetails());
         }
         System.out.println("\nOutput");
         for(DepartmentStoreItem item:departmentStoreItems){
+            item.calculateTax();
             System.out.println(item.productFinalPriceDetails());
             totalTax+=item.getTotalTaxOfItem();
             totalPrice+=item.getTotalPriceOfItem();
