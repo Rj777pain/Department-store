@@ -1,5 +1,5 @@
 import java.util.*;
-public class DepartmentStore{
+public class DepartmentStoreItem{
     private double tax=0;
     private String productName;
     private int productCount;
@@ -8,7 +8,7 @@ public class DepartmentStore{
 
     Set<String> itemToBeExcluded = new HashSet<String>(Arrays.asList("book","chocolate bar","chocolate","medicine","food"));
 
-    public DepartmentStore(String productDetails){
+    public DepartmentStoreItem(String productDetails){
         String[] detailsList=productDetails.split(" : ");
         this.productName=detailsList[0];
         this.productCount=Integer.parseInt(detailsList[1]);
@@ -19,7 +19,7 @@ public class DepartmentStore{
     private void calculateTax(){
         String nameInLowerCase = productName.toLowerCase();
 
-        if(isImported(name)){
+        if(isImported(nameInLowerCase)){
             nameInLowerCase = nameInLowerCase.replaceAll("imported ","");           
             tax+=initialPrice*0.05;
         }
@@ -58,17 +58,17 @@ public class DepartmentStore{
 
 
     public static void main(String[] args){
-        List<DepartmentStore> departmentStoreItems=new ArrayList<>();
-        departmentStoreItems.add(new DepartmentStore("Book : 1 : 12.49"));
-        departmentStoreItems.add(new DepartmentStore("Music CD : 1 : 14.99"));
-        departmentStoreItems.add(new DepartmentStore("Chocolate Bar : 1 : 0.85"));
+        List<DepartmentStoreItem> departmentStoreItems=new ArrayList<>();
+        departmentStoreItems.add(new DepartmentStoreItem("Book : 1 : 12.49"));
+        departmentStoreItems.add(new DepartmentStoreItem("Music CD : 1 : 14.99"));
+        departmentStoreItems.add(new DepartmentStoreItem("Chocolate Bar : 1 : 0.85"));
         double totalPrice=0,totalTax=0;
         System.out.println("Input");
-        for(DepartmentStore item:departmentStoreItems){
+        for(DepartmentStoreItem item:departmentStoreItems){
             System.out.println(item.productInitialPriceDetails());
         }
         System.out.println("\nOutput");
-        for(DepartmentStore item:departmentStoreItems){
+        for(DepartmentStoreItem item:departmentStoreItems){
             System.out.println(item.productFinalPriceDetails());
             totalTax+=item.getTotalTaxOfItem();
             totalPrice+=item.getTotalPriceOfItem();
