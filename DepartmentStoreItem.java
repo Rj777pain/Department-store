@@ -6,6 +6,7 @@ public class DepartmentStoreItem{
     private double initialPrice;
     private double finalPrice=0;
 
+    //set of items to be excluded from sales tax
     Set<String> itemToBeExcluded = new HashSet<String>(Arrays.asList("book","chocolate bar","chocolate","medicine","food"));
 
     public DepartmentStoreItem(String productDetails){
@@ -35,11 +36,11 @@ public class DepartmentStoreItem{
         return name.contains("imported");
     }
 
-    //getters
+    //removing imported tag
     public String getTruncatedName(String name){
         return(name.replaceAll("imported ",""));
     }
-
+    //getteres
     public double getFinalPrice(){
         return(finalPrice);
     }
