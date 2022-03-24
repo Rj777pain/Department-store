@@ -17,25 +17,22 @@ public class DepartmentStore{
     }
 
     private void calculateTax(){
-        String name=productName.toLowerCase();
-        
+        String nameInLowerCase = productName.toLowerCase();
 
         if(isImported(name)){
-
-            name=name.replaceAll("imported ","");
-            
+            nameInLowerCase = nameInLowerCase.replaceAll("imported ","");           
             tax+=initialPrice*0.05;
         }
-        if(isSalesTaxApplicable(name))
+        if(isSalesTaxApplicable(nameInLowerCase))
             tax+=initialPrice*0.1;
         finalPrice=initialPrice+tax;
         
     }
+
     private boolean isSalesTaxApplicable(String name){    
         return (!itemToBeExcluded.contains(name));
     }
-    private boolean isImported(String name){
-        
+    private boolean isImported(String name){   
         return name.contains("imported");
     }
 
